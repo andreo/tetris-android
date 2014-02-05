@@ -3,14 +3,14 @@ package com.tetris;
 
 import android.graphics.Color;
 
-public class Tetrimino {
+public class Tetromino {
 
     private boolean[] bits;
     private int width;
     private int height;
     private int color;
 
-    public Tetrimino(int width, int height, int color, boolean[] bits) {
+    public Tetromino(int width, int height, int color, boolean[] bits) {
         if (!(0 <= width)) throw new IndexOutOfBoundsException("width");
         if (!(0 <= height)) throw new IndexOutOfBoundsException("height");
         if (bits == null) throw new NullPointerException("bits");
