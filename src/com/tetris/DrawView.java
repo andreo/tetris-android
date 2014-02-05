@@ -30,7 +30,7 @@ public class DrawView extends View {
         canvas.drawOval(rect, paint);
     }
 
-    private void drawTetrimino(Canvas canvas, float x, float y, Tetrimino tetrimino) {
+    private void drawTetromino(Canvas canvas, float x, float y, Tetromino tetrimino) {
         paint.setColor(tetrimino.getColor());
         for (int i = 0; i < tetrimino.getWidth(); ++i) {
             for (int j = 0; j < tetrimino.getHeight(); ++j) {
@@ -51,7 +51,7 @@ public class DrawView extends View {
             }
         }
 
-        drawTetrimino(canvas, 0, 0, game.getCurrentTetrimino());
+        drawTetromino(canvas, 0, 0, game.getCurrentTetromino());
     }
     
     @Override

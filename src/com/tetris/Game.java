@@ -10,8 +10,8 @@ public class Game {
     int[] color;
     boolean[] bits;
 
-    Tetrimino current;
-    Tetrimino next;
+    Tetromino current;
+    Tetromino next;
 
     private void check(int x, int y) {
         if (!(0 <= x && x < width)) throw new IndexOutOfBoundsException("x");
@@ -23,7 +23,7 @@ public class Game {
     }
 
     public Game() {
-        current = new Tetrimino(3, 2,
+        current = new Tetromino(3, 2,
                                 Color.RED,
                                 new boolean[] { false, true, false, true, true, true });
 
@@ -66,11 +66,11 @@ public class Game {
         return height;
     }
     
-    public Tetrimino getCurrentTetrimino() {
+    public Tetromino getCurrentTetromino() {
         return current;
     }
 
-    public Tetrimino getNextTetrimino() {
+    public Tetromino getNextTetromino() {
         return next;
     }
 
