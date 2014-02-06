@@ -7,7 +7,7 @@ import android.graphics.Paint;
 import android.view.View;
 import android.graphics.RectF;
 
-public class DrawView extends View {
+public class TetrisView extends View {
 
     Game game = new Game();
 
@@ -15,7 +15,7 @@ public class DrawView extends View {
     private float pointH = 50;
     private float pointW = 50;
 
-    public DrawView(Context context) {
+    public TetrisView(Context context) {
         super(context);            
     }
 

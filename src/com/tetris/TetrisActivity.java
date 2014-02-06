@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 public class TetrisActivity extends Activity
 {
-    private DrawView drawView;
+    private TetrisView drawView;
     
     /** Called when the activity is first created. */
     @Override
@@ -13,7 +13,7 @@ public class TetrisActivity extends Activity
     {
         super.onCreate(savedInstanceState);
 
-        drawView = new DrawView(this);
+        drawView = new TetrisView(this);
         setContentView(drawView);
     }
 }
