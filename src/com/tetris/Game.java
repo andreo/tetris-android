@@ -107,6 +107,6 @@ public class Game {
     }
     
     public void rotateRight() {
-        throw new UnsupportedOperationException("rotateRight");
+        current.rotateRight();
     }
 }

@@ -48,7 +48,7 @@ public class Tetromino {
         return bits[index(x, y)];
     }
 
-    public void rotateLeft() {
+    public void rotateRight() {
         // make in place
         boolean[] newBits = new boolean[width*height];
         int newWidth = height;
@@ -68,8 +68,8 @@ public class Tetromino {
         bits = newBits;
     }
 
-    public void rotateRight() {
-        throw new UnsupportedOperationException("rotateRight");
+    public void rotateLeft() {
+        throw new UnsupportedOperationException("rotateLeft");
     }
 
 }

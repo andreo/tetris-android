@@ -60,6 +60,10 @@ public class TetrisView extends View {
 
         drawTetromino(canvas, 0, 0, game.getCurrentTetromino());
     }
+
+    public Game getGame() {
+        return game;
+    }
     
     @Override
     public void onDraw(Canvas canvas) {
