@@ -6,9 +6,12 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.View;
 import android.graphics.RectF;
+import android.util.AttributeSet;
+import android.util.Log;
 
 public class TetrisView extends View {
 
+    private static final String TAG = "TetrisView";
     Game game = new Game();
 
     private Paint paint = new Paint();
@@ -17,6 +20,10 @@ public class TetrisView extends View {
 
     public TetrisView(Context context) {
         super(context);            
+    }
+
+    public TetrisView(Context context, AttributeSet attrs) {
+        super(context, attrs);
     }
 
     private void drawPoint(Canvas canvas, float x, float y) {
