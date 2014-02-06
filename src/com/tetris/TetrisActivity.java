@@ -19,13 +19,22 @@ public class TetrisActivity extends Activity
         Log.e(TAG, "onCreate");
         setContentView(R.layout.main);
 
-        final Button button = (Button) findViewById(R.id.button_rotate_right);
         final TetrisView tetrisView = (TetrisView) findViewById(R.id.view_tetris);
-         button.setOnClickListener(new View.OnClickListener() {
-             public void onClick(View v) {
-                 tetrisView.getGame().rotateRight();
-                 tetrisView.invalidate();
-             }
-         });
+
+        final Button rotateRight = (Button) findViewById(R.id.button_rotate_right);
+        rotateRight.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    tetrisView.getGame().rotateRight();
+                    tetrisView.invalidate();
+                }
+            });
+
+        final Button rotateLeft = (Button) findViewById(R.id.button_rotate_left);
+        rotateLeft.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    tetrisView.getGame().rotateLeft();
+                    tetrisView.invalidate();
+                }
+            });
     }
 }

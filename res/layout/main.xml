@@ -19,6 +19,13 @@
       android:text="Rotate Right"
       />
 
+  <Button
+      android:id="@+id/button_rotate_left"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Rotate Left"
+      />
+
   <com.tetris.TetrisView
       android:id="@+id/view_tetris"
       android:layout_width="fill_parent"
