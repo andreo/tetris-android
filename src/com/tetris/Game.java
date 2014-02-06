@@ -15,6 +15,9 @@ public class Game {
     int currentX;
     int currentY;
 
+    boolean allignLeft;
+    boolean allignRight;
+
     private void check(int x, int y) {
         if (!(0 <= x && x < width)) throw new IndexOutOfBoundsException("x");
         if (!(0 <= y && y < height)) throw new IndexOutOfBoundsException("y");
@@ -25,9 +28,13 @@ public class Game {
     }
 
     public Game() {
-        current = new Tetromino(3, 2,
+        // current = new Tetromino(3, 2,
+        //                         Color.RED,
+        //                         new boolean[] { false, true, false, true, true, true });
+
+        current = new Tetromino(4, 1,
                                 Color.RED,
-                                new boolean[] { false, true, false, true, true, true });
+                                new boolean[] { true, true, true, true });
 
         width = 7;
         height = 6;
@@ -100,28 +107,57 @@ public class Game {
         throw new UnsupportedOperationException("resume");
     }
 
+    private void rememberAllignment() {
+        allignLeft = currentX < 0;
+        allignRight = width <= (currentX + current.getWidth() + 1);
+    }
+
+    private void allign() {
+        if (allignLeft) {
+            currentX = 0;
+        }
+        else if (allignRight) {
+            currentX = width - 1 - current.getWidth();
+        }
+    }
+
+    private void fixAllignment() {
+        if (currentX < 0) {
+            currentX = 0;
+        }
+        else if (width <= currentX + current.getWidth()) {
+            currentX = width - 1 - current.getWidth();
+        }
+    }
+
     public void moveLeft() {
-        if (0 <= currentX - 1) {
+        if (0 <= (currentX - 1)) {
             currentX -= 1;
+            rememberAllignment();
         }
     }
     
     public void moveRight() {
-        if (currentX + current.getWidth() + 1 < width) {
+        if ((currentX + current.getWidth() + 1) < width) {
             currentX += 1;
+            rememberAllignment();
         }
-    }
-    
-    public void down() {
-        throw new UnsupportedOperationException("down");
     }
     
     public void rotateLeft() {
         current.rotateLeft();
+        fixAllignment();
+        allign();
     }
     
     public void rotateRight() {
         current.rotateRight();
+        fixAllignment();
+        allign();
+    }
+
+    public void down() {
+        throw new UnsupportedOperationException("down");
     }
 
     public void tick() {
