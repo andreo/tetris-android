@@ -88,4 +88,3 @@ public class Tetromino {
         bits = newBits;
     }
 }
-

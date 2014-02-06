@@ -10,8 +10,10 @@ public class Game {
     int[] color;
     boolean[] bits;
 
-    Tetromino current;
     Tetromino next;
+    Tetromino current;
+    int currentX;
+    int currentY;
 
     private void check(int x, int y) {
         if (!(0 <= x && x < width)) throw new IndexOutOfBoundsException("x");
@@ -27,8 +29,8 @@ public class Game {
                                 Color.RED,
                                 new boolean[] { false, true, false, true, true, true });
 
-        width = 5;
-        height = 5;
+        width = 7;
+        height = 6;
 
         bits = new boolean[width*height];
         color = new int[width*height];
@@ -70,6 +72,14 @@ public class Game {
         return current;
     }
 
+    public int getCurrentX() {
+        return currentX;
+    }
+
+    public int getCurrentY() {
+        return currentY;
+    }
+
     public Tetromino getNextTetromino() {
         return next;
     }
@@ -90,12 +100,16 @@ public class Game {
         throw new UnsupportedOperationException("resume");
     }
 
-    public void left() {
-        throw new UnsupportedOperationException("left");
+    public void moveLeft() {
+        if (0 <= currentX - 1) {
+            currentX -= 1;
+        }
     }
     
-    public void right() {
-        throw new UnsupportedOperationException("right");
+    public void moveRight() {
+        if (currentX + current.getWidth() + 1 < width) {
+            currentX += 1;
+        }
     }
     
     public void down() {
@@ -108,5 +122,9 @@ public class Game {
     
     public void rotateRight() {
         current.rotateRight();
+    }
+
+    public void tick() {
+        throw new UnsupportedOperationException("tick");
     }
 }

@@ -12,19 +12,41 @@
       android:text="Hello World, TetrisActivity"
       />
 
-  <Button
-      android:id="@+id/button_rotate_right"
-      android:layout_width="wrap_content"
+  <LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="fill_parent"
       android:layout_height="wrap_content"
-      android:text="Rotate Right"
-      />
+      >
 
-  <Button
-      android:id="@+id/button_rotate_left"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="Rotate Left"
-      />
+    <Button
+        android:id="@+id/button_move_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ML"
+        />
+
+    <Button
+        android:id="@+id/button_rotate_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RL"
+        />
+
+    <Button
+        android:id="@+id/button_rotate_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RR"
+        />
+
+    <Button
+        android:id="@+id/button_move_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MR"
+        />
+
+  </LinearLayout>
 
   <com.tetris.TetrisView
       android:id="@+id/view_tetris"

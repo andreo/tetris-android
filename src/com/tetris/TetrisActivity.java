@@ -21,20 +21,44 @@ public class TetrisActivity extends Activity
 
         final TetrisView tetrisView = (TetrisView) findViewById(R.id.view_tetris);
 
-        final Button rotateRight = (Button) findViewById(R.id.button_rotate_right);
-        rotateRight.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    tetrisView.getGame().rotateRight();
-                    tetrisView.invalidate();
-                }
-            });
+        {
+            final Button button = (Button) findViewById(R.id.button_rotate_right);
+            button.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        tetrisView.getGame().rotateRight();
+                        tetrisView.invalidate();
+                    }
+                });
+        }
 
-        final Button rotateLeft = (Button) findViewById(R.id.button_rotate_left);
-        rotateLeft.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    tetrisView.getGame().rotateLeft();
-                    tetrisView.invalidate();
-                }
-            });
+        {
+            final Button button = (Button) findViewById(R.id.button_rotate_left);
+            button.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        tetrisView.getGame().rotateLeft();
+                        tetrisView.invalidate();
+                    }
+                });
+        }
+
+        {
+            final Button button = (Button) findViewById(R.id.button_move_left);
+            button.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        tetrisView.getGame().moveLeft();
+                        tetrisView.invalidate();
+                    }
+                });
+        }
+
+        {
+            final Button button = (Button) findViewById(R.id.button_move_right);
+            button.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        tetrisView.getGame().moveRight();
+                        tetrisView.invalidate();
+                    }
+                });
+        }
     }
 }
