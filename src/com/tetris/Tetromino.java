@@ -34,11 +34,43 @@ public class Tetromino {
         return color;
     }
 
-    public boolean get(int x, int y) {
+    private void check(int x, int y) {
         if (!(0 <= x && x < width)) throw new IndexOutOfBoundsException("x");
         if (!(0 <= y && y < height)) throw new IndexOutOfBoundsException("y");
-            
-        return bits[y*width + x];
     }
+
+    private int index(int x, int y) {
+        return y*width + x;
+    }
+
+    public boolean get(int x, int y) {
+        check(x, y);
+        return bits[index(x, y)];
+    }
+
+    public void rotateLeft() {
+        // make in place
+        boolean[] newBits = new boolean[width*height];
+        int newWidth = height;
+        int newHeight = width;
+
+        for (int y=0; y<height; ++y) {
+            for (int x=0; x<width; ++x) {
+                int newY = x;
+                int newX = height - y - 1;
+
+                newBits[newWidth*newY + newX] = bits[index(x, y)];
+            }
+        }
+
+        width = newWidth;
+        height = newHeight;
+        bits = newBits;
+    }
+
+    public void rotateRight() {
+        throw new UnsupportedOperationException("rotateRight");
+    }
+
 }
 

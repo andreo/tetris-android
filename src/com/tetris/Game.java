@@ -103,7 +103,7 @@ public class Game {
     }
     
     public void rotateLeft() {
-        throw new UnsupportedOperationException("rotateLeft");
+        current.rotateLeft();
     }
     
     public void rotateRight() {
