@@ -6,6 +6,13 @@ import java.util.TimerTask;
 
 public class Game extends TimerTask {
 
+    public static final int MoveLeft = 1;
+    public static final int MoveRight = 2;
+    public static final int RotateLeft = 3;
+    public static final int RotateRight = 4;
+    public static final int Down = 5;
+    public static final int Tick = 6;
+
     int width;
     int height;
 
@@ -75,11 +82,11 @@ public class Game extends TimerTask {
     public int getWidth() {
         return width;
     }
-    
+
     public int getHeight() {
         return height;
     }
-    
+
     public Tetromino getCurrentTetromino() {
         return current;
     }
@@ -139,7 +146,7 @@ public class Game extends TimerTask {
         }
     }
 
-    public void moveLeft() {
+    private void moveLeft() {
         if (0 <= (currentX - 1)) {
             currentX -= 1;
             rememberAllignment();
@@ -147,8 +154,8 @@ public class Game extends TimerTask {
             handler.invalidate();
         }
     }
-    
-    public void moveRight() {
+
+    private void moveRight() {
         if ((currentX + current.getWidth() + 1) < width) {
             currentX += 1;
             rememberAllignment();
@@ -156,16 +163,16 @@ public class Game extends TimerTask {
             handler.invalidate();
         }
     }
-    
-    public void rotateLeft() {
+
+    private void rotateLeft() {
         current.rotateLeft();
         fixAllignment();
         allign();
 
         handler.invalidate();
     }
-    
-    public void rotateRight() {
+
+    private void rotateRight() {
         current.rotateRight();
         fixAllignment();
         allign();
@@ -173,7 +180,7 @@ public class Game extends TimerTask {
         handler.invalidate();
     }
 
-    public void down() {
+    private void down() {
         throw new UnsupportedOperationException("down");
     }
 
@@ -182,9 +189,38 @@ public class Game extends TimerTask {
         tick();
     }
 
-    public void tick() {
+    private void tick() {
         currentY += 1;
         handler.invalidate();
         timer.schedule(this, 1000);
+    }
+
+    public void handleMessage(int message) {
+        switch (message) {
+
+        case RotateRight:
+            rotateRight();
+            break;
+
+        case RotateLeft:
+            rotateLeft();
+            break;
+
+        case MoveLeft:
+            moveLeft();
+            break;
+
+        case MoveRight:
+            moveRight();
+            break;
+
+        case Down:
+            down();
+            break;
+
+        case Tick:
+            tick();
+            break;
+        }
     }
 }
