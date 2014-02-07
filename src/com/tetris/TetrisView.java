@@ -59,11 +59,13 @@ public class TetrisView extends View {
             }
         }
 
-        drawTetromino(canvas,
-                      game.getCurrentX() * pointH,
-                      game.getCurrentY() * pointW,
-                      game.getCurrentColor(),
-                      game.getCurrentTetromino());
+        if (game.getCurrentTetromino() != null) {
+            drawTetromino(canvas,
+                          game.getCurrentX() * pointH,
+                          game.getCurrentY() * pointW,
+                          game.getCurrentColor(),
+                          game.getCurrentTetromino());
+        }
     }
 
     public Game getGame() {

@@ -2,8 +2,11 @@ package com.tetris;
 
 import android.graphics.Color;
 import android.os.Handler;
+import android.util.Log;
 
 public class Game implements Runnable {
+
+    private final String TAG = "Game";
 
     public static final int MoveLeft = 1;
     public static final int MoveRight = 2;
@@ -11,6 +14,7 @@ public class Game implements Runnable {
     public static final int RotateRight = 4;
     public static final int Down = 5;
     public static final int Tick = 6;
+    public static final int Start = 7;
 
     int width;
     int height;
@@ -19,6 +23,7 @@ public class Game implements Runnable {
     boolean[] bits;
 
     Tetromino next;
+    int nextColor;
     Tetromino current;
     int currentX;
     int currentY;
@@ -26,8 +31,6 @@ public class Game implements Runnable {
 
     boolean allignLeft;
     boolean allignRight;
-
-    TetrominoFactory factory = new TetrominoFactory();
 
     Handler timer;
     GameHandler handler;
@@ -39,25 +42,8 @@ public class Game implements Runnable {
 
         this.timer = timer;
 
-        current = factory.get(1);
-        currentColor = Color.GREEN;
-
         bits = new boolean[width*height];
         color = new int[width*height];
-        for (int i = 0; i < getWidth(); ++i) {
-            for (int j = 0; j < getHeight(); ++j) {
-                color[index(i, j)] = Color.GREEN;
-            }
-        }
-
-        bits[index(0, height-1)] = true;
-        color[index(0, height-1)] = Color.RED;
-
-        bits[index(1, height-1)] = true;
-        color[index(1, height-1)] = Color.BLUE;
-
-        bits[index(2, height-1)] = true;
-        color[index(2, height-1)] = Color.GREEN;
     }
 
     private void check(int x, int y) {
@@ -108,7 +94,10 @@ public class Game implements Runnable {
     }
 
     public void start() {
-        throw new UnsupportedOperationException("start");
+        initNext();
+        newTetromino();
+        initNext();
+        tick();
     }
 
     public void stop() {
@@ -180,10 +169,39 @@ public class Game implements Runnable {
         handler.invalidate();
     }
 
+    private void initNext() {
+        next = handler.nextTetromino();
+        nextColor = handler.nextColor();
+    }
+
+    private void newTetromino() {
+        current = next;
+        currentColor = nextColor;
+        currentY = 0;
+        currentX = width/2;
+    }
+
+    private void settleTetromino() {
+        for (int y=0; y<current.getHeight(); ++y) {
+            for (int x=0; x<current.getWidth(); ++x) {
+                if (current.get(x, y)) {
+                    bits[index(x+currentX, y+currentY)] = true;
+                    color[index(x+currentX, y+currentY)] = currentColor;
+                }
+            }
+        }
+    }
+
     private void down(int n) {
         if ((currentY + n + current.getHeight()) < height) {
             currentY += n;
         }
+        else {
+            settleTetromino();
+            newTetromino();
+            initNext();
+        }
+        handler.invalidate();
     }
 
     public void run() {
@@ -192,11 +210,12 @@ public class Game implements Runnable {
 
     private void tick() {
         down(1);
-        handler.invalidate();
         timer.postDelayed(this, 1000);
     }
 
     public void handleMessage(int message) {
+        Log.d(TAG, "message: " + message);
+
         switch (message) {
 
         case RotateRight:
@@ -222,6 +241,13 @@ public class Game implements Runnable {
         case Tick:
             tick();
             break;
+
+        case Start:
+            start();
+            break;
+
+        default:
+            throw new UnsupportedOperationException("message " + message);
         }
     }
 }

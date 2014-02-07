@@ -47,6 +47,6 @@ public class TetrominoFactory {
     }
 
     public Tetromino get(int index) {
-        return tetrominoList[index];
+        return new Tetromino(tetrominoList[index]);
     }
 }

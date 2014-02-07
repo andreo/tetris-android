@@ -14,10 +14,17 @@ public class Tetromino {
         if (!(0 <= height)) throw new IndexOutOfBoundsException("height");
         if (bits == null) throw new NullPointerException("bits");
         if (bits.length != width*height) throw new IllegalArgumentException("bits");
-            
+
         this.width = width;
         this.height = height;
         this.bits = bits;
+    }
+
+    public Tetromino(Tetromino tetromino) {
+        width = tetromino.width;
+        height = tetromino.height;
+        bits = new boolean[tetromino.bits.length];
+        System.arraycopy(tetromino.bits, 0, bits, 0, bits.length);
     }
 
     public int getWidth() {

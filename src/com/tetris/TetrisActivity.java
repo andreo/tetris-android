@@ -5,12 +5,16 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.graphics.Color;
 import android.widget.Button;
+import java.util.Random;
 
 public class TetrisActivity extends Activity
 {
     private static final String TAG = "TetrisActivity";
     private Game game;
+    private final TetrominoFactory factory = new TetrominoFactory();
+    private final Random rnd = new Random();
 
     private void bindMessage(int resource, final int message) {
         final Button button = (Button) findViewById(resource);
@@ -32,8 +36,17 @@ public class TetrisActivity extends Activity
 
         game = new Game(10, 10,
                         new GameHandler() {
+
                             public void invalidate() {
                                 tetrisView.invalidate();
+                            }
+
+                            public Tetromino nextTetromino() {
+                                return factory.get(rnd.nextInt(factory.getSize()));
+                            }
+
+                            public int nextColor() {
+                                return 0xFF000000 | rnd.nextInt();
                             }
                         },
                         new Handler());
@@ -44,6 +57,6 @@ public class TetrisActivity extends Activity
         bindMessage(R.id.button_move_left, Game.MoveLeft);
         bindMessage(R.id.button_move_right, Game.MoveRight);
 
-        game.handleMessage(Game.Tick);
+        game.handleMessage(Game.Start);
     }
 }
