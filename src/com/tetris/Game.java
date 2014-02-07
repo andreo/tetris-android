@@ -1,10 +1,9 @@
 package com.tetris;
 
 import android.graphics.Color;
-import java.util.Timer;
-import java.util.TimerTask;
+import android.os.Handler;
 
-public class Game extends TimerTask {
+public class Game implements Runnable {
 
     public static final int MoveLeft = 1;
     public static final int MoveRight = 2;
@@ -30,17 +29,18 @@ public class Game extends TimerTask {
 
     TetrominoFactory factory = new TetrominoFactory();
 
-    Timer timer = new Timer("TetrisTimer");
+    Handler timer;
     GameHandler handler;
 
-    public Game(GameHandler handler) {
-        current = factory.get(1);
-        currentColor = Color.GREEN;
-
+    public Game(int width, int height, GameHandler handler, Handler timer) {
+        this.width = width;
+        this.height = height;
         this.handler = handler;
 
-        width = 7;
-        height = 6;
+        this.timer = timer;
+
+        current = factory.get(1);
+        currentColor = Color.GREEN;
 
         bits = new boolean[width*height];
         color = new int[width*height];
@@ -180,19 +180,20 @@ public class Game extends TimerTask {
         handler.invalidate();
     }
 
-    private void down() {
-        throw new UnsupportedOperationException("down");
+    private void down(int n) {
+        if ((currentY + n + current.getHeight()) < height) {
+            currentY += n;
+        }
     }
 
-    @Override
     public void run() {
         tick();
     }
 
     private void tick() {
-        currentY += 1;
+        down(1);
         handler.invalidate();
-        timer.schedule(this, 1000);
+        timer.postDelayed(this, 1000);
     }
 
     public void handleMessage(int message) {
@@ -215,7 +216,7 @@ public class Game extends TimerTask {
             break;
 
         case Down:
-            down();
+            down(height);
             break;
 
         case Tick:
