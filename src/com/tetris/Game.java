@@ -1,8 +1,10 @@
 package com.tetris;
 
 import android.graphics.Color;
+import java.util.Timer;
+import java.util.TimerTask;
 
-public class Game {
+public class Game extends TimerTask {
 
     int width;
     int height;
@@ -21,18 +23,14 @@ public class Game {
 
     TetrominoFactory factory = new TetrominoFactory();
 
-    private void check(int x, int y) {
-        if (!(0 <= x && x < width)) throw new IndexOutOfBoundsException("x");
-        if (!(0 <= y && y < height)) throw new IndexOutOfBoundsException("y");
-    }
+    Timer timer = new Timer("TetrisTimer");
+    GameHandler handler;
 
-    private int index(int x, int y) {
-        return y * width + x;
-    }
-
-    public Game() {
-        current = factory.get(0);
+    public Game(GameHandler handler) {
+        current = factory.get(1);
         currentColor = Color.GREEN;
+
+        this.handler = handler;
 
         width = 7;
         height = 6;
@@ -53,6 +51,15 @@ public class Game {
 
         bits[index(2, height-1)] = true;
         color[index(2, height-1)] = Color.GREEN;
+    }
+
+    private void check(int x, int y) {
+        if (!(0 <= x && x < width)) throw new IndexOutOfBoundsException("x");
+        if (!(0 <= y && y < height)) throw new IndexOutOfBoundsException("y");
+    }
+
+    private int index(int x, int y) {
+        return y * width + x;
     }
 
     public int getColor(int x, int y) {
@@ -136,6 +143,8 @@ public class Game {
         if (0 <= (currentX - 1)) {
             currentX -= 1;
             rememberAllignment();
+
+            handler.invalidate();
         }
     }
     
@@ -143,6 +152,8 @@ public class Game {
         if ((currentX + current.getWidth() + 1) < width) {
             currentX += 1;
             rememberAllignment();
+
+            handler.invalidate();
         }
     }
     
@@ -150,19 +161,30 @@ public class Game {
         current.rotateLeft();
         fixAllignment();
         allign();
+
+        handler.invalidate();
     }
     
     public void rotateRight() {
         current.rotateRight();
         fixAllignment();
         allign();
+
+        handler.invalidate();
     }
 
     public void down() {
         throw new UnsupportedOperationException("down");
     }
 
+    @Override
+    public void run() {
+        tick();
+    }
+
     public void tick() {
-        throw new UnsupportedOperationException("tick");
+        currentY += 1;
+        handler.invalidate();
+        timer.schedule(this, 1000);
     }
 }

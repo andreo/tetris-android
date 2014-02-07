@@ -9,24 +9,30 @@ import android.widget.Button;
 public class TetrisActivity extends Activity
 {
     private static final String TAG = "TetrisActivity";
-    private TetrisView drawView;
+    private Game game;
 
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        Log.e(TAG, "onCreate");
+        Log.d(TAG, "onCreate");
         setContentView(R.layout.main);
-
         final TetrisView tetrisView = (TetrisView) findViewById(R.id.view_tetris);
+
+        game = new Game(new GameHandler() {
+                public void invalidate() {
+                    tetrisView.invalidate();
+                }
+            });
+        tetrisView.setGame(game);
 
         {
             final Button button = (Button) findViewById(R.id.button_rotate_right);
+            Log.d(TAG, "button" + button);
             button.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        tetrisView.getGame().rotateRight();
-                        tetrisView.invalidate();
+                        game.rotateRight();
                     }
                 });
         }
@@ -35,8 +41,7 @@ public class TetrisActivity extends Activity
             final Button button = (Button) findViewById(R.id.button_rotate_left);
             button.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        tetrisView.getGame().rotateLeft();
-                        tetrisView.invalidate();
+                        game.rotateLeft();
                     }
                 });
         }
@@ -45,8 +50,7 @@ public class TetrisActivity extends Activity
             final Button button = (Button) findViewById(R.id.button_move_left);
             button.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        tetrisView.getGame().moveLeft();
-                        tetrisView.invalidate();
+                        game.moveLeft();
                     }
                 });
         }
@@ -55,8 +59,7 @@ public class TetrisActivity extends Activity
             final Button button = (Button) findViewById(R.id.button_move_right);
             button.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        tetrisView.getGame().moveRight();
-                        tetrisView.invalidate();
+                        game.moveRight();
                     }
                 });
         }

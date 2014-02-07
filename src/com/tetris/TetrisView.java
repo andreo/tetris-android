@@ -12,7 +12,7 @@ import android.util.Log;
 public class TetrisView extends View {
 
     private static final String TAG = "TetrisView";
-    Game game = new Game();
+    Game game;
 
     private Paint paint = new Paint();
     private float pointH = 50;
@@ -70,22 +70,12 @@ public class TetrisView extends View {
         return game;
     }
     
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
     @Override
     public void onDraw(Canvas canvas) {
-
-        // paint.setColor(Color.BLACK);
-        // paint.setStrokeWidth(3);
-        // canvas.drawRect(30, 30, 80, 80, paint);
-
-        // paint.setStrokeWidth(0);
-        // paint.setColor(Color.CYAN);
-        // canvas.drawRect(33, 60, 77, 77, paint );
-
-        // paint.setColor(Color.YELLOW);
-        // canvas.drawRect(33, 33, 77, 60, paint );
-
-        // drawPoint(canvas, 100, 100);
-
         drawGame(canvas, 0, 0, game);
     }
 }
