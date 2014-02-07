@@ -19,11 +19,13 @@ public class TetrisView extends View {
     private float pointW = 50;
 
     public TetrisView(Context context) {
-        super(context);            
+        super(context);
+        paint.setFlags(Paint.ANTI_ALIAS_FLAG);
     }
 
     public TetrisView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        paint.setFlags(Paint.ANTI_ALIAS_FLAG);
     }
 
     private void drawPoint(Canvas canvas, float x, float y) {
