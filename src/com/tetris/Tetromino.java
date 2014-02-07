@@ -8,9 +8,8 @@ public class Tetromino {
     private boolean[] bits;
     private int width;
     private int height;
-    private int color;
 
-    public Tetromino(int width, int height, int color, boolean[] bits) {
+    public Tetromino(int width, int height, boolean[] bits) {
         if (!(0 <= width)) throw new IndexOutOfBoundsException("width");
         if (!(0 <= height)) throw new IndexOutOfBoundsException("height");
         if (bits == null) throw new NullPointerException("bits");
@@ -18,7 +17,6 @@ public class Tetromino {
             
         this.width = width;
         this.height = height;
-        this.color = color;
         this.bits = bits;
     }
 
@@ -28,10 +26,6 @@ public class Tetromino {
 
     public int getHeight() {
         return height;
-    }
-
-    public int getColor() {
-        return color;
     }
 
     private void check(int x, int y) {

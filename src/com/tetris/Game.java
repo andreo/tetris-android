@@ -14,9 +14,12 @@ public class Game {
     Tetromino current;
     int currentX;
     int currentY;
+    int currentColor;
 
     boolean allignLeft;
     boolean allignRight;
+
+    TetrominoFactory factory = new TetrominoFactory();
 
     private void check(int x, int y) {
         if (!(0 <= x && x < width)) throw new IndexOutOfBoundsException("x");
@@ -28,13 +31,8 @@ public class Game {
     }
 
     public Game() {
-        // current = new Tetromino(3, 2,
-        //                         Color.RED,
-        //                         new boolean[] { false, true, false, true, true, true });
-
-        current = new Tetromino(4, 1,
-                                Color.RED,
-                                new boolean[] { true, true, true, true });
+        current = factory.get(0);
+        currentColor = Color.GREEN;
 
         width = 7;
         height = 6;
@@ -85,6 +83,10 @@ public class Game {
 
     public int getCurrentY() {
         return currentY;
+    }
+
+    public int getCurrentColor() {
+        return currentColor;
     }
 
     public Tetromino getNextTetromino() {

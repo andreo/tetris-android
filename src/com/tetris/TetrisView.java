@@ -28,7 +28,7 @@ public class TetrisView extends View {
         paint.setFlags(Paint.ANTI_ALIAS_FLAG);
     }
 
-    private void drawPoint(Canvas canvas, float x, float y) {
+    private void drawPoint(Canvas canvas, float x, float y, int color) {
 
         RectF rect = new RectF();
         rect.top = y;
@@ -36,15 +36,15 @@ public class TetrisView extends View {
         rect.left = x;
         rect.right = x + pointW;
 
+        paint.setColor(color);
         canvas.drawOval(rect, paint);
     }
 
-    private void drawTetromino(Canvas canvas, float x, float y, Tetromino tetromino) {
-        paint.setColor(tetromino.getColor());
+    private void drawTetromino(Canvas canvas, float x, float y, int color, Tetromino tetromino) {
         for (int i = 0; i < tetromino.getWidth(); ++i) {
             for (int j = 0; j < tetromino.getHeight(); ++j) {
                 if (tetromino.get(i, j)) {
-                    drawPoint(canvas, x + i*pointW, y + j*pointH);
+                    drawPoint(canvas, x + i*pointW, y + j*pointH, color);
                 }
             }
         }
@@ -54,8 +54,7 @@ public class TetrisView extends View {
         for (int i = 0; i < game.getWidth(); ++i) {
             for (int j = 0; j < game.getHeight(); ++j) {
                 if (game.getBit(i, j)) {
-                    paint.setColor(game.getColor(i, j));
-                    drawPoint(canvas, x + i*pointW, y + j*pointH);
+                    drawPoint(canvas, x + i*pointW, y + j*pointH, game.getColor(i, j));
                 }
             }
         }
@@ -63,6 +62,7 @@ public class TetrisView extends View {
         drawTetromino(canvas,
                       game.getCurrentX() * pointH,
                       game.getCurrentY() * pointW,
+                      game.getCurrentColor(),
                       game.getCurrentTetromino());
     }
 
