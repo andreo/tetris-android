@@ -37,7 +37,7 @@ public class TetrisActivity extends Activity
         game = new Game(10, 20,
                         new GameHandler() {
 
-                            public void invalidate() {
+                            public void moveTetromino(int x, int y, int rotation) {
                                 tetrisView.invalidate();
                             }
 

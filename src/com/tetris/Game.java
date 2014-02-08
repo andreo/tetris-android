@@ -141,7 +141,7 @@ public class Game implements Runnable {
             currentX -= 1;
             rememberAllignment();
 
-            handler.invalidate();
+            handler.moveTetromino(-1, 0, 0);
         }
     }
 
@@ -151,7 +151,7 @@ public class Game implements Runnable {
             currentX += 1;
             rememberAllignment();
 
-            handler.invalidate();
+            handler.moveTetromino(1, 0, 0);
         }
     }
 
@@ -162,7 +162,7 @@ public class Game implements Runnable {
             && !isIntersected(newT, currentX, currentY)) {
 
             current = newT;
-            handler.invalidate();
+            handler.moveTetromino(0, 0, -1);
         }
 
         // current = newT;
@@ -179,7 +179,7 @@ public class Game implements Runnable {
             && !isIntersected(newT, currentX, currentY)) {
 
             current = newT;
-            handler.invalidate();
+            handler.moveTetromino(0, 0, 1);
         }
 
         // current = current.rotateRight();
@@ -213,13 +213,16 @@ public class Game implements Runnable {
     }
 
     private void moveDown(int n) {
-        for (int i=0; i<n; ++i) {
-            if (!moveDown()) {
+        int len = 0;
+        for (int i = 0; i < n; ++i) {
+            if (moveDown()) {
+                len++;
+            }
+            else {
                 break;
             }
         }
-
-        handler.invalidate();
+        handler.moveTetromino(len, 0, 0);
     }
 
     private boolean isIntersected(Tetromino t, int X, int Y) {
@@ -266,8 +269,8 @@ public class Game implements Runnable {
     }
 
     private void tick() {
-        moveDown();
-        handler.invalidate();
+        int n = moveDown() ? 1 : 0;
+        handler.moveTetromino(n, 0, 0);
         timer.postDelayed(this, 700);
     }
 
