@@ -224,6 +224,31 @@ public class Game implements Runnable {
         handler.moveTetromino(len, 0, 0);
     }
 
+    private boolean isFull(int y) {
+        boolean full = true;
+        for (int x = 0; x < width; ++x) {
+            full = full && bits[index(x, y)];
+            if (!full) {
+                break;
+            }
+        }
+        return full;
+    }
+
+    private void deleteFullRow(int y) {
+        System.arraycopy(bits, 0, bits, width, width*y);
+        System.arraycopy(color, 0, color, width, width*y);
+    }
+
+    private void deleteFullRows() {
+        for (int y = 0; y < height; ++y) {
+            if (isFull(y)) {
+                deleteFullRow(y);
+                handler.deleteFullRow(y);
+            }
+        }
+    }
+
     private boolean isIntersected(Tetromino t, int X, int Y) {
         for (int y=0; y<t.getHeight(); ++y) {
             for (int x=0; x<t.getWidth(); ++x) {
@@ -238,7 +263,7 @@ public class Game implements Runnable {
     }
 
     private boolean isTouchedDown(Tetromino t, int y) {
-        return y + t.getHeight() < height;
+        return height < y + t.getHeight();
     }
 
     private boolean isTouchedLeft(Tetromino t, int x) {
@@ -246,17 +271,18 @@ public class Game implements Runnable {
     }
 
     private boolean isTouchedRight(Tetromino t, int x) {
-        return width <= x + t.getWidth();
+        return width < x + t.getWidth();
     }
 
     private boolean moveDown() {
-        if (isTouchedDown(current, currentY+1)
+        if (!isTouchedDown(current, currentY+1)
             && !isIntersected(current, currentX, currentY+1)) {
             currentY += 1;
             return true;
         }
         else {
             settleTetromino();
+            deleteFullRows();
             newTetromino();
             initNext();
             return false;

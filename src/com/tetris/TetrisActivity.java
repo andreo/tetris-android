@@ -41,8 +41,12 @@ public class TetrisActivity extends Activity
                                 tetrisView.invalidate();
                             }
 
+                            public void deleteFullRow(int y) {
+                                tetrisView.invalidate();
+                            }
+
                             public Tetromino nextTetromino() {
-                                return factory.get(rnd.nextInt(factory.getSize()));
+                                return factory.get(3);//rnd.nextInt(factory.getSize()));
                             }
 
                             public int nextColor() {

@@ -78,6 +78,8 @@ public class TetrisView extends View {
 
     @Override
     public void onDraw(Canvas canvas) {
+        paint.setColor(Color.WHITE);
+        canvas.drawRect(0, 0, game.getWidth() * pointW, game.getHeight() * pointH, paint);
         drawGame(canvas, 0, 0, game);
     }
 }
