@@ -136,7 +136,8 @@ public class Game implements Runnable {
     }
 
     private void moveLeft() {
-        if (!isTouchedLeft(currentX - 1) && !isIntersected(currentX - 1, currentY)) {
+        if (!isTouchedLeft(current, currentX - 1)
+            && !isIntersected(current, currentX - 1, currentY)) {
             currentX -= 1;
             rememberAllignment();
 
@@ -145,7 +146,8 @@ public class Game implements Runnable {
     }
 
     private void moveRight() {
-        if (!isTouchedRight(currentX + 1) && !isIntersected(currentX + 1, currentY)) {
+        if (!isTouchedRight(current, currentX + 1)
+            && !isIntersected(current, currentX + 1, currentY)) {
             currentX += 1;
             rememberAllignment();
 
@@ -154,19 +156,37 @@ public class Game implements Runnable {
     }
 
     private void rotateLeft() {
-        current.rotateLeft();
-        fixAllignment();
-        allign();
+        Tetromino newT = current.rotateLeft();
+        if (!isTouchedRight(newT, currentX)
+            && !isTouchedLeft(newT, currentX)
+            && !isIntersected(newT, currentX, currentY)) {
 
-        handler.invalidate();
+            current = newT;
+            handler.invalidate();
+        }
+
+        // current = newT;
+        // fixAllignment();
+        // allign();
+
+        // handler.invalidate();
     }
 
     private void rotateRight() {
-        current.rotateRight();
-        fixAllignment();
-        allign();
+        Tetromino newT = current.rotateRight();
+        if (!isTouchedRight(newT, currentX)
+            && !isTouchedLeft(newT, currentX)
+            && !isIntersected(newT, currentX, currentY)) {
 
-        handler.invalidate();
+            current = newT;
+            handler.invalidate();
+        }
+
+        // current = current.rotateRight();
+        // fixAllignment();
+        // allign();
+
+        // handler.invalidate();
     }
 
     private void initNext() {
@@ -202,11 +222,11 @@ public class Game implements Runnable {
         handler.invalidate();
     }
 
-    private boolean isIntersected(int X, int Y) {
-        for (int y=0; y<current.getHeight(); ++y) {
-            for (int x=0; x<current.getWidth(); ++x) {
+    private boolean isIntersected(Tetromino t, int X, int Y) {
+        for (int y=0; y<t.getHeight(); ++y) {
+            for (int x=0; x<t.getWidth(); ++x) {
                 if (x + X < width && y + Y < height) {
-                    if (bits[index(x + X, y + Y)] & current.get(x, y)) {
+                    if (bits[index(x + X, y + Y)] & t.get(x, y)) {
                         return true;
                     }
                 }
@@ -215,20 +235,21 @@ public class Game implements Runnable {
         return false;
     }
 
-    private boolean isTouchedDown(int y) {
-        return y + current.getHeight() < height;
+    private boolean isTouchedDown(Tetromino t, int y) {
+        return y + t.getHeight() < height;
     }
 
-    private boolean isTouchedLeft(int x) {
+    private boolean isTouchedLeft(Tetromino t, int x) {
         return x < 0;
     }
 
-    private boolean isTouchedRight(int x) {
-        return width <= x + current.getWidth();
+    private boolean isTouchedRight(Tetromino t, int x) {
+        return width <= x + t.getWidth();
     }
 
     private boolean moveDown() {
-        if (isTouchedDown(currentY+1) && !isIntersected(currentX, currentY+1)) {
+        if (isTouchedDown(current, currentY+1)
+            && !isIntersected(current, currentX, currentY+1)) {
             currentY += 1;
             return true;
         }

@@ -18,12 +18,12 @@ public class Tetromino {
         this.bits = bits;
     }
 
-    public Tetromino(Tetromino tetromino) {
-        width = tetromino.width;
-        height = tetromino.height;
-        bits = new boolean[tetromino.bits.length];
-        System.arraycopy(tetromino.bits, 0, bits, 0, bits.length);
-    }
+    // public Tetromino(Tetromino tetromino) {
+    //     width = tetromino.width;
+    //     height = tetromino.height;
+    //     bits = new boolean[tetromino.bits.length];
+    //     System.arraycopy(tetromino.bits, 0, bits, 0, bits.length);
+    // }
 
     public int getWidth() {
         return width;
@@ -47,7 +47,7 @@ public class Tetromino {
         return bits[index(x, y)];
     }
 
-    public void rotateRight() {
+    public Tetromino rotateRight() {
         // make in place
         boolean[] newBits = new boolean[width*height];
         int newWidth = height;
@@ -62,12 +62,10 @@ public class Tetromino {
             }
         }
 
-        width = newWidth;
-        height = newHeight;
-        bits = newBits;
+        return new Tetromino(newWidth, newHeight, newBits);
     }
 
-    public void rotateLeft() {
+    public Tetromino rotateLeft() {
         // make in place
         boolean[] newBits = new boolean[width*height];
         int newWidth = height;
@@ -82,8 +80,6 @@ public class Tetromino {
             }
         }
 
-        width = newWidth;
-        height = newHeight;
-        bits = newBits;
+        return new Tetromino(newWidth, newHeight, newBits);
     }
 }
