@@ -178,7 +178,7 @@ public class Game implements Runnable {
         current = next;
         currentColor = nextColor;
         currentY = 0;
-        currentX = width/2;
+        currentX = width/2 - current.getWidth()/2;
     }
 
     private void settleTetromino() {
