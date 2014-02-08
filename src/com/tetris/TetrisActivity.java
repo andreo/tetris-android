@@ -46,7 +46,7 @@ public class TetrisActivity extends Activity
                             }
 
                             public Tetromino nextTetromino() {
-                                return factory.get(3);//rnd.nextInt(factory.getSize()));
+                                return factory.get(rnd.nextInt(factory.getSize()));
                             }
 
                             public int nextColor() {
