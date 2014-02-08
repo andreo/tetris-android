@@ -34,7 +34,7 @@ public class TetrisActivity extends Activity
         setContentView(R.layout.main);
         final TetrisView tetrisView = (TetrisView) findViewById(R.id.view_tetris);
 
-        game = new Game(10, 10,
+        game = new Game(10, 20,
                         new GameHandler() {
 
                             public void invalidate() {
@@ -56,6 +56,7 @@ public class TetrisActivity extends Activity
         bindMessage(R.id.button_rotate_left, Game.RotateLeft);
         bindMessage(R.id.button_move_left, Game.MoveLeft);
         bindMessage(R.id.button_move_right, Game.MoveRight);
+        bindMessage(R.id.button_move_down, Game.MoveDown);
 
         game.handleMessage(Game.Start);
     }

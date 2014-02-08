@@ -15,8 +15,8 @@ public class TetrisView extends View {
     Game game;
 
     private Paint paint = new Paint();
-    private float pointH = 30;
-    private float pointW = 30;
+    private float pointH = 15;
+    private float pointW = 15;
 
     public TetrisView(Context context) {
         super(context);
