@@ -1,6 +1,6 @@
 package com.tetris;
 
-public interface GameHandler {
+public interface IGameHandler {
     void moveTetromino(int x, int y, int rotation);
     Tetromino nextTetromino();
     int nextColor();

@@ -33,9 +33,9 @@ public class Game implements Runnable {
     boolean allignRight;
 
     Handler timer;
-    GameHandler handler;
+    IGameHandler handler;
 
-    public Game(int width, int height, GameHandler handler, Handler timer) {
+    public Game(int width, int height, IGameHandler handler, Handler timer) {
         this.width = width;
         this.height = height;
         this.handler = handler;
