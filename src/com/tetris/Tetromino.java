@@ -1,8 +1,6 @@
 
 package com.tetris;
 
-import android.graphics.Color;
-
 public class Tetromino {
 
     private boolean[] bits;
