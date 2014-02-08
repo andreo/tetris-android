@@ -1,6 +1,5 @@
 package com.tetris;
 
-import android.graphics.Color;
 import android.os.Handler;
 import android.util.Log;
 
