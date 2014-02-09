@@ -15,8 +15,8 @@ public class TetrisView extends View {
     Game game;
 
     private Paint paint = new Paint();
-    private float pointH = 15;
-    private float pointW = 15;
+    private float pointH;
+    private float pointW;
 
     public TetrisView(Context context) {
         super(context);
@@ -61,8 +61,8 @@ public class TetrisView extends View {
 
         if (game.getCurrentTetromino() != null) {
             drawTetromino(canvas,
-                          game.getCurrentX() * pointH,
-                          game.getCurrentY() * pointW,
+                          x + game.getCurrentX() * pointH,
+                          y + game.getCurrentY() * pointW,
                           game.getCurrentColor(),
                           game.getCurrentTetromino());
         }
@@ -71,7 +71,7 @@ public class TetrisView extends View {
     public Game getGame() {
         return game;
     }
-    
+
     public void setGame(Game game) {
         this.game = game;
     }
@@ -89,7 +89,15 @@ public class TetrisView extends View {
         // Log.d(TAG, "w = " + pointW + " h = " + pointH);
 
         paint.setColor(Color.WHITE);
-        canvas.drawRect(0, 0, game.getWidth() * pointW, game.getHeight() * pointH, paint);
-        drawGame(canvas, 0, 0, game);
+
+        float xOffeset = (getWidth() - (pointW * game.getWidth())) / 2;
+        float yOffeset = (getHeight() - (pointH * game.getHeight())) / 2;
+
+        canvas.drawRect(xOffeset,
+                        yOffeset,
+                        xOffeset + game.getWidth() * pointW,
+                        yOffeset + game.getHeight() * pointH,
+                        paint);
+        drawGame(canvas, xOffeset, yOffeset, game);
     }
 }
