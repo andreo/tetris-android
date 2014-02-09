@@ -25,21 +25,21 @@
         android:id="@+id/button_move_left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ML"
+        android:text="@string/move_left"
         />
 
     <Button
         android:id="@+id/button_move_down"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="MD"
+        android:text="@string/move_down"
         />
 
     <Button
         android:id="@+id/button_move_right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="MR"
+        android:text="@string/move_right"
         />
 
   </LinearLayout>
