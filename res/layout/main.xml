@@ -29,17 +29,10 @@
         />
 
     <Button
-        android:id="@+id/button_rotate_left"
+        android:id="@+id/button_move_down"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="RL"
-        />
-
-    <Button
-        android:id="@+id/button_rotate_right"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="RR"
+        android:text="MD"
         />
 
     <Button
@@ -47,13 +40,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="MR"
-        />
-
-    <Button
-        android:id="@+id/button_move_down"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="MD"
         />
 
   </LinearLayout>

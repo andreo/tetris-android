@@ -57,8 +57,6 @@ public class TetrisActivity extends Activity
                         new Handler());
         tetrisView.setGame(game);
 
-        bindMessage(R.id.button_rotate_right, Game.RotateRight);
-        bindMessage(R.id.button_rotate_left, Game.RotateLeft);
         bindMessage(R.id.button_move_left, Game.MoveLeft);
         bindMessage(R.id.button_move_right, Game.MoveRight);
         bindMessage(R.id.button_move_down, Game.MoveDown);
