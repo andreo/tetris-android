@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.MotionEvent;
 import android.graphics.Color;
 import android.widget.Button;
 import java.util.Random;
@@ -61,6 +62,16 @@ public class TetrisActivity extends Activity
         bindMessage(R.id.button_move_left, Game.MoveLeft);
         bindMessage(R.id.button_move_right, Game.MoveRight);
         bindMessage(R.id.button_move_down, Game.MoveDown);
+
+        tetrisView.setOnTouchListener(new View.OnTouchListener() {
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
+                        game.handleMessage(Game.RotateRight);
+                        return true;
+                    }
+                    return false;
+                }
+            });
 
         game.handleMessage(Game.Start);
     }
