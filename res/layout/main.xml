@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
+     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
 
   <TextView
+      android:id="@+id/caption"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
-      android:text="Hello World, TetrisActivity"
+      android:text="Hello TetrisActivity"
+      android:layout_alignParentTop="true"
       />
 
   <LinearLayout
+      android:id="@+id/bar"
       android:orientation="horizontal"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
       >
 
     <Button
@@ -59,7 +62,9 @@
       android:id="@+id/view_tetris"
       android:layout_width="fill_parent"
       android:layout_height="fill_parent"
+      android:layout_below="@id/caption"
+      android:layout_above="@id/bar"
       />
 
-</LinearLayout>
+</RelativeLayout>
 
