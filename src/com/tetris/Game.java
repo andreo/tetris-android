@@ -94,9 +94,9 @@ public class Game implements Runnable {
 
     public void start() {
         initNext();
-        newTetromino();
-        initNext();
-        tick();
+        if (newTetromino()) {
+            timer.postDelayed(this, 700);
+        }
     }
 
     public void stop() {
@@ -193,11 +193,24 @@ public class Game implements Runnable {
         nextColor = handler.nextColor();
     }
 
-    private void newTetromino() {
-        current = next;
-        currentColor = nextColor;
-        currentY = 0;
-        currentX = width/2 - current.getWidth()/2;
+    private boolean newTetromino() {
+        int newX = width/2 - next.getWidth()/2;
+        int newY = 0;
+        if (isIntersected(next, newX, newY)) {
+            handler.gameOver();
+            return false;
+        }
+        else {
+            current = next;
+            currentColor = nextColor;
+            currentY = 0;
+            currentX = width/2 - current.getWidth()/2;
+
+            initNext();
+
+            handler.moveTetromino(0, 0, 0);
+            return true;
+        }
     }
 
     private void settleTetromino() {
@@ -283,8 +296,6 @@ public class Game implements Runnable {
         else {
             settleTetromino();
             deleteFullRows();
-            newTetromino();
-            initNext();
             return false;
         }
     }
@@ -294,9 +305,15 @@ public class Game implements Runnable {
     }
 
     private void tick() {
-        int n = moveDown() ? 1 : 0;
-        handler.moveTetromino(n, 0, 0);
-        timer.postDelayed(this, 700);
+        if (moveDown()) {
+            handler.moveTetromino(1, 0, 0);
+            timer.postDelayed(this, 700);
+        }
+        else {
+            if (newTetromino()) {
+                timer.postDelayed(this, 700);
+            }
+        }
     }
 
     public void handleMessage(int message) {

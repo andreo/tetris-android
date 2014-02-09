@@ -5,4 +5,5 @@ public interface IGameHandler {
     void deleteFullRow(int y);
     Tetromino nextTetromino();
     int nextColor();
+    void gameOver();
 }

@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.MotionEvent;
 import android.graphics.Color;
+import android.widget.TextView;
 import android.widget.Button;
 import java.util.Random;
 
@@ -52,6 +53,11 @@ public class TetrisActivity extends Activity
 
                             public int nextColor() {
                                 return 0xFF000000 | rnd.nextInt();
+                            }
+
+                            public void gameOver() {
+                                TextView text = (TextView) findViewById(R.id.caption);
+                                text.setText("Game Over!");
                             }
                         },
                         new Handler());
