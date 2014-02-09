@@ -1,5 +1,7 @@
 package com.tetris;
 
+import java.util.Random;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,7 +11,8 @@ import android.view.MotionEvent;
 import android.graphics.Color;
 import android.widget.TextView;
 import android.widget.Button;
-import java.util.Random;
+import android.media.AudioManager;
+import android.media.SoundPool;
 
 public class TetrisActivity extends Activity
 {
@@ -36,11 +39,18 @@ public class TetrisActivity extends Activity
         setContentView(R.layout.main);
         final TetrisView tetrisView = (TetrisView) findViewById(R.id.view_tetris);
 
+        final SoundPool sp = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
+        final int iTmp = sp.load(this, R.raw.click, 1);
+
         game = new Game(10, 20,
                         new IGameHandler() {
 
-                            public void moveTetromino(int x, int y, int rotation) {
+                            public void moveTetromino(int x, int y, int r) {
                                 tetrisView.invalidate();
+                                if (x != 0 || r != 0) {
+                                    Log.d(TAG, "x = " + x + " y = " + y);
+                                    sp.play(iTmp, 1, 1, 0, 0, 1);
+                                }
                             }
 
                             public void deleteFullRow(int y) {

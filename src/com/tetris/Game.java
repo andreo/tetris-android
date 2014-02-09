@@ -234,7 +234,7 @@ public class Game implements Runnable {
                 break;
             }
         }
-        handler.moveTetromino(len, 0, 0);
+        handler.moveTetromino(0, len, 0);
     }
 
     private boolean isFull(int y) {
@@ -306,7 +306,7 @@ public class Game implements Runnable {
 
     private void tick() {
         if (moveDown()) {
-            handler.moveTetromino(1, 0, 0);
+            handler.moveTetromino(0, 1, 0);
             timer.postDelayed(this, 700);
         }
         else {
