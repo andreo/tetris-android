@@ -42,7 +42,7 @@ public class TetrisActivity extends Activity
         final SoundPool sp = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
         final int iTmp = sp.load(this, R.raw.click, 1);
 
-        game = new Game(10, 20,
+        game = new Game(10, 15,
                         new IGameHandler() {
 
                             public void moveTetromino(int x, int y, int r) {
