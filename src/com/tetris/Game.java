@@ -98,6 +98,7 @@ public class Game implements Runnable {
     }
 
     private void postNextTick() {
+        cancelNextTick();
         timer.postDelayed(this, 700);
     }
 
@@ -237,22 +238,33 @@ public class Game implements Runnable {
         currentX = -1;
         currentY = -1;
         current = null;
+
+        deleteFullRows();
+
+        if (newTetromino()) {
+            postNextTick();
+        }
     }
 
     private void moveDown(int n) {
         Log.d(TAG, "moveDown " + n);
         int len = 0;
+        boolean touchedDown = false;
         for (int i = 0; i < n; ++i) {
-            if (moveDown()) {
+            touchedDown = !moveDown();
+            if (!touchedDown) {
                 len++;
             }
             else {
-                newTetromino();
-                return ;
+                break;
             }
         }
 
         handler.moveTetromino(0, len, 0);
+
+        if (touchedDown) {
+            settleTetromino();
+        }
     }
 
     private boolean isFull(int y) {
@@ -312,8 +324,6 @@ public class Game implements Runnable {
             return true;
         }
         else {
-            settleTetromino();
-            deleteFullRows();
             return false;
         }
     }
@@ -328,9 +338,7 @@ public class Game implements Runnable {
             postNextTick();
         }
         else {
-            if (newTetromino()) {
-                postNextTick();
-            }
+            settleTetromino();
         }
     }
 
