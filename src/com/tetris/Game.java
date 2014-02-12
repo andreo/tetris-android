@@ -92,10 +92,19 @@ public class Game implements Runnable {
         return next;
     }
 
+    private void cancelNextTick() {
+        timer.removeCallbacks(this);
+        Log.d(TAG, "cancelNextTick ");
+    }
+
+    private void postNextTick() {
+        timer.postDelayed(this, 700);
+    }
+
     public void start() {
         initNext();
         if (newTetromino()) {
-            timer.postDelayed(this, 700);
+            postNextTick();
         }
     }
 
@@ -197,6 +206,7 @@ public class Game implements Runnable {
         int newX = width/2 - next.getWidth()/2;
         int newY = 0;
         if (isIntersected(next, newX, newY)) {
+            cancelNextTick();
             handler.gameOver();
             return false;
         }
@@ -214,6 +224,7 @@ public class Game implements Runnable {
     }
 
     private void settleTetromino() {
+        Log.d(TAG, "settleTetromino");
         for (int y=0; y<current.getHeight(); ++y) {
             for (int x=0; x<current.getWidth(); ++x) {
                 if (current.get(x, y)) {
@@ -222,18 +233,25 @@ public class Game implements Runnable {
                 }
             }
         }
+
+        currentX = -1;
+        currentY = -1;
+        current = null;
     }
 
     private void moveDown(int n) {
+        Log.d(TAG, "moveDown " + n);
         int len = 0;
         for (int i = 0; i < n; ++i) {
             if (moveDown()) {
                 len++;
             }
             else {
-                break;
+                newTetromino();
+                return ;
             }
         }
+
         handler.moveTetromino(0, len, 0);
     }
 
@@ -307,11 +325,11 @@ public class Game implements Runnable {
     private void tick() {
         if (moveDown()) {
             handler.moveTetromino(0, 1, 0);
-            timer.postDelayed(this, 700);
+            postNextTick();
         }
         else {
             if (newTetromino()) {
-                timer.postDelayed(this, 700);
+                postNextTick();
             }
         }
     }

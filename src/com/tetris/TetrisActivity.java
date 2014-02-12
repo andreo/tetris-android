@@ -48,7 +48,7 @@ public class TetrisActivity extends Activity
                             public void moveTetromino(int x, int y, int r) {
                                 tetrisView.invalidate();
                                 if (x != 0 || r != 0 || 1 < y) {
-                                    Log.d(TAG, "x = " + x + " y = " + y);
+                                    Log.d(TAG, "moveTetromino x = " + x + " y = " + y);
                                     sp.play(iTmp, 1, 1, 0, 0, 1);
                                 }
                             }
